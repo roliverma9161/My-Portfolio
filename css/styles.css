@@ -1,22 +1,4 @@
-/* ---------------------------------------------------------
-    * Name: 
-    * Version: 1.0.0
-    * Author: Themesflat
-    * Author URI: http://themesflat.com 
 
-	* Abstracts variable
-
-    * Reset css styles
-
-    * Components
-
-    * section
-
-    * dashboard
-
-    * Responsive
- ------------------------------------------------------------------------------ */
-/*--------- Abstracts variable ---------- */
 :root {
   --Black: #000000;
   --White: #ffffff;
@@ -74,28 +56,6 @@
   --Primary: #e14392;
 }
 
-/*---------- Reset css styles ----------- */
-/* ---------------------------------------------------------
-    * Name: 
-    * Version: 1.0.0
-    * Author: Themesflat
-    * Author URI: http://themesflat.com 
-
-	* Abstracts variable
-
-    * Reset css styles
-
-    * Components
-
-    * section
-
-    * dashboard
-
-    * Responsive
- ------------------------------------------------------------------------------ */
-/*--------- Abstracts variable ---------- */
-/* Reset Browsers
--------------------------------------------------------------- */
 html,
 body,
 div,
@@ -2875,6 +2835,122 @@ form textarea {
   --Text-light: #f8f7f4;
   color: var(--Text-primary);
   border: unset;
+}
+
+.project-placeholder{
+    width:100%;
+    height:388px;
+    background:linear-gradient(135deg,#00C6FF,#0072FF);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:15px;
+    position:relative;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.project-placeholder:hover{
+    transform:scale(1.02);
+}
+
+.project-content{
+    text-align:center;
+    color:#fff;
+    z-index:2;
+}
+
+.project-content h3{
+    font-size:32px;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.project-content p{
+    font-size:16px;
+    opacity:0.9;
+}
+.college-project{
+    background: linear-gradient(135deg,#4CAF50,#2E7D32);
+}
+
+.ecommerce-project{
+    background: linear-gradient(135deg,#8E2DE2,#4A00E0);
+}
+.mern-project{
+    background: linear-gradient(135deg,#11998E,#38EF7D);
+}
+
+.skills-slider{
+    overflow:hidden;
+    margin:25px 0;
+}
+
+.skills-track{
+    display:flex;
+    width:max-content;
+    gap:18px;
+    animation:scroll 28s linear infinite;
+}
+
+.reverse .skills-track{
+    animation-direction:reverse;
+}
+
+.skills-track span{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 24px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:50px;
+    background:#151515;
+    color:#fff;
+    white-space:nowrap;
+    transition:.3s;
+    font-weight:600;
+}
+
+.skills-track span:hover{
+    border-color:#00e5ff;
+    color:#00e5ff;
+    /* transform:translateY(-4px); */
+}
+
+.skills-track i{
+    font-size:22px;
+}
+
+@keyframes scroll{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-50%);
+    }
+
+}
+
+
+.form-project{
+    background: linear-gradient(135deg,#FF6A00,#EE0979);
+}
+
+.project-content{
+    text-align:center;
+    color:white;
+}
+
+.project-content h3{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.project-content p{
+    font-size:16px;
+    opacity:0.8;
 }
 .dark-mode .bs-light-mode {
   box-shadow: 0px 5px 5px 0px rgba(28, 36, 51, 0.1019607843);
