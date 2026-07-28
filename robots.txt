@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roliverma.vercel.app/sitemap.xml
