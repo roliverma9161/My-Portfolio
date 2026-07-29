@@ -1690,6 +1690,16 @@
 
     </div>
 
+
+    <div id="loader">
+        <div class="loader-text">
+            <span>R</span>
+            <span>O</span>
+            <span>L</span>
+            <span>I</span>
+        </div>
+    </div>
+
     <!-- Javascript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.min.js"></script>
@@ -1710,6 +1720,20 @@
     </script>
 
     <script>
+        window.addEventListener("load", () => {
+
+            setTimeout(() => {
+
+                loader.style.opacity = "0";
+
+                setTimeout(() => {
+                    loader.remove();
+                }, 600);
+
+            }, 2600);
+
+        });
+
         const scrollBtn = document.getElementById("scrollTop");
         const progressCircle = document.querySelector(".progress");
         const progressValue = document.getElementById("progress-value");
