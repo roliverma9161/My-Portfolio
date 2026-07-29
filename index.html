@@ -1677,14 +1677,18 @@
 
 
     <div id="scrollTop">
-        <svg class="progress-ring" width="60" height="60">
-            <circle class="progress-bg" cx="30" cy="30" r="26"></circle>
-            <circle class="progress" cx="30" cy="30" r="26"></circle>
+
+        <svg class="progress-ring" width="70" height="70">
+            <circle class="progress-bg" cx="35" cy="35" r="30"></circle>
+            <circle class="progress" cx="35" cy="35" r="30"></circle>
         </svg>
 
-        <span>↑</span>
-    </div>
+        <div class="scroll-content">
+            <i class="fa-solid fa-arrow-up"></i>
+            <span id="progress-value">0%</span>
+        </div>
 
+    </div>
 
     <!-- Javascript -->
     <script src="js/bootstrap.min.js"></script>
@@ -1707,31 +1711,40 @@
 
     <script>
         const scrollBtn = document.getElementById("scrollTop");
-        const progress = document.querySelector(".progress");
+        const progressCircle = document.querySelector(".progress");
+        const progressValue = document.getElementById("progress-value");
 
-        const radius = 26;
+        const radius = 30;
         const circumference = 2 * Math.PI * radius;
 
-        progress.style.strokeDasharray = circumference;
-        progress.style.strokeDashoffset = circumference;
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference;
 
         window.addEventListener("scroll", () => {
 
-            const scrollTop = window.scrollY;
+            const scrollTop = window.pageYOffset;
 
-            const docHeight =
-                document.documentElement.scrollHeight - window.innerHeight;
+            const height =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;
 
-            const percent = scrollTop / docHeight;
+            const percent = Math.round((scrollTop / height) * 100);
 
-            const offset = circumference - percent * circumference;
+            const offset =
+                circumference - (percent / 100) * circumference;
 
-            progress.style.strokeDashoffset = offset;
+            progressCircle.style.strokeDashoffset = offset;
 
-            if (scrollTop > 300) {
+            progressValue.innerHTML = `${percent}%`;
+
+            if (scrollTop > 250) {
+
                 scrollBtn.classList.add("show");
+
             } else {
+
                 scrollBtn.classList.remove("show");
+
             }
 
         });
