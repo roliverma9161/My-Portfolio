@@ -1676,6 +1676,14 @@
     <!-- End tf-setting-color -->
 
 
+    <div id="scrollTop">
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-bg" cx="30" cy="30" r="26"></circle>
+            <circle class="progress" cx="30" cy="30" r="26"></circle>
+        </svg>
+
+        <span>↑</span>
+    </div>
 
 
     <!-- Javascript -->
@@ -1695,6 +1703,47 @@
     <script src="js/jquery.fancybox.js"></script>
     <script src="js/main.js">
 
+    </script>
+
+    <script>
+        const scrollBtn = document.getElementById("scrollTop");
+        const progress = document.querySelector(".progress");
+
+        const radius = 26;
+        const circumference = 2 * Math.PI * radius;
+
+        progress.style.strokeDasharray = circumference;
+        progress.style.strokeDashoffset = circumference;
+
+        window.addEventListener("scroll", () => {
+
+            const scrollTop = window.scrollY;
+
+            const docHeight =
+                document.documentElement.scrollHeight - window.innerHeight;
+
+            const percent = scrollTop / docHeight;
+
+            const offset = circumference - percent * circumference;
+
+            progress.style.strokeDashoffset = offset;
+
+            if (scrollTop > 300) {
+                scrollBtn.classList.add("show");
+            } else {
+                scrollBtn.classList.remove("show");
+            }
+
+        });
+
+        scrollBtn.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
     </script>
 
     <script src="schema.js"></script>
