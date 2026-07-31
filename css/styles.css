@@ -4119,6 +4119,7 @@ ANIMATION AREA CSS
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  margin-left: auto;
 }
 .service-item .btn-arrow i {
   position: relative;
