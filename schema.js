@@ -14,7 +14,6 @@ const schema = {
 
     "sameAs": [
         "https://github.com/roliverma9161",
-        "https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/"
     ],
 
     "knowsAbout": [
