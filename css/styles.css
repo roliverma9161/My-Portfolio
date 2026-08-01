@@ -4121,14 +4121,6 @@ ANIMATION AREA CSS
   transition: all 0.3s ease;
 }
 
-/* Hide Default Cursor */
-
-*{
-    cursor:none;
-}
-
-/* Large Cursor */
-
 .cursor{
 
     position:fixed;
@@ -4158,28 +4150,28 @@ ANIMATION AREA CSS
     mix-blend-mode:difference;
 }
 
-
-/* Small Cursor */
-
 .cursor-dot{
 
-    position:fixed;
+    position: fixed;
+    width: 14px;
+    height: 14px;
 
-    width:8px;
-    height:8px;
+    border-radius: 50%;
 
-    background:var(--Primary);
+    background: radial-gradient(circle,
+        #ffffff 0%,
+        var(--Primary) 45%,
+        rgba(69,231,123,.2) 100%);
 
-    border-radius:50%;
+    box-shadow:
+        0 0 15px var(--Primary),
+        0 0 35px rgba(69,231,123,.45);
 
-    pointer-events:none;
+    pointer-events: none;
 
-    left:0;
-    top:0;
+    transform: translate(-50%,-50%);
 
-    transform:translate(-50%,-50%);
-
-    z-index:999999;
+    z-index: 999999;
 }
 .service-item .btn-arrow i {
   position: relative;
