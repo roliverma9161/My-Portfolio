@@ -1,160 +1,75 @@
+    
+const cursor=document.querySelector(".cursor");
+const dot=document.querySelector(".cursor-dot");
 
-/*====================================
-        PREMIUM FOOTER JS
-====================================*/
+let mouseX=0;
+let mouseY=0;
 
-document.addEventListener("DOMContentLoaded", () => {
+let cursorX=0;
+let cursorY=0;
 
-    /*============================
-            Back To Top
-    ============================*/
+document.addEventListener("mousemove",(e)=>{
 
-    const backTop = document.getElementById("backTop");
+mouseX=e.clientX;
+mouseY=e.clientY;
 
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 400) {
-
-            backTop.classList.add("active");
-
-        } else {
-
-            backTop.classList.remove("active");
-
-        }
-
-    });
-
-    backTop.addEventListener("click", () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    });
-
-
-    /*============================
-        Footer Reveal Animation
-    ============================*/
-
-    const footerItems = document.querySelectorAll(".footer-col");
-
-    const revealFooter = new IntersectionObserver((entries) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("show");
-
-            }
-
-        });
-
-    }, {
-
-        threshold: 0.15
-
-    });
-
-    footerItems.forEach(item => {
-
-        revealFooter.observe(item);
-
-    });
-
-
-    /*============================
-        Magnetic Social Icons
-    ============================*/
-
-    document.querySelectorAll(".footer-social a").forEach(icon => {
-
-        icon.addEventListener("mousemove", (e) => {
-
-            const rect = icon.getBoundingClientRect();
-
-            const x = e.clientX - rect.left - rect.width / 2;
-
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            icon.style.transform =
-                `translate(${x * 0.25}px, ${y * 0.25}px)`;
-
-        });
-
-        icon.addEventListener("mouseleave", () => {
-
-            icon.style.transform = "";
-
-        });
-
-    });
-
-
-    /*============================
-        Smooth Anchor Scroll
-    ============================*/
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-        anchor.addEventListener("click", function(e) {
-
-            const target = document.querySelector(this.getAttribute("href"));
-
-            if (!target) return;
-
-            e.preventDefault();
-
-            target.scrollIntoView({
-
-                behavior: "smooth",
-
-                block: "start"
-
-            });
-
-        });
-
-    });
-
-
-    /*============================
-        Footer Parallax Glow
-    ============================*/
-
-    const glow = document.querySelector(".cta-glow");
-
-    if (glow) {
-
-        window.addEventListener("mousemove", (e) => {
-
-            let x = (e.clientX / window.innerWidth - 0.5) * 30;
-            let y = (e.clientY / window.innerHeight - 0.5) * 30;
-
-            glow.style.transform =
-                `translate(calc(-50% + ${x}px), ${y}px)`;
-
-        });
-
-    }
-
-
-    /*============================
-        Current Year
-    ============================*/
-
-    const year = document.querySelector(".footer-bottom span.year");
-
-    if (year) {
-
-        year.textContent = new Date().getFullYear();
-
-    }
+dot.style.left=mouseX+"px";
+dot.style.top=mouseY+"px";
 
 });
+
+
+function animate(){
+
+cursorX+=(mouseX-cursorX)*0.14;
+
+cursorY+=(mouseY-cursorY)*0.14;
+
+cursor.style.left=cursorX+"px";
+cursor.style.top=cursorY+"px";
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+
+/* Hover */
+
+document.querySelectorAll("a,button,.tf-btn,input,textarea").forEach(el=>{
+
+el.addEventListener("mouseenter",()=>{
+
+cursor.style.width="70px";
+cursor.style.height="70px";
+cursor.style.background="rgba(69,231,123,.15)";
+cursor.style.borderColor="var(--Primary)";
+
+});
+
+el.addEventListener("mouseleave",()=>{
+
+cursor.style.width="42px";
+cursor.style.height="42px";
+cursor.style.background="transparent";
+
+});
+
+});
+
+
+/* Click Effect */
+
+document.addEventListener("mousedown",()=>{
+
+cursor.style.transform="translate(-50%,-50%) scale(.75)";
+
+});
+
+document.addEventListener("mouseup",()=>{
+
+cursor.style.transform="translate(-50%,-50%) scale(1)";
+
+});
+
