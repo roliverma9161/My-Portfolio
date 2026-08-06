@@ -1,19 +1,8 @@
-/**
 
- * headerFixed
- * tabSlide
- * settings_color
- * switchMode
- * oneNavOnePage
- * handleEffectSpotlight
- * preventDefault
- * spliting
- * handleSidebar
- 
-**/
-document.getElementById("current-year").textContent = new Date().getFullYear();
+
 (function ($) {
     ("use strict");
+    // document.getElementById("current-year").textContent = new Date().getFullYear();
 
     /* headerFixed
   -------------------------------------------------------------------------*/
