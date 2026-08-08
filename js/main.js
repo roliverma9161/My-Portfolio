@@ -141,145 +141,145 @@
 
     /* oneNavOnePage
   -------------------------------------------------------------------------------------*/
-  const oneNavOnePage = () => {
-    if (!$(".section-onepage").length) return;
+    const oneNavOnePage = () => {
+        if (!$(".section-onepage").length) return;
 
-    const $navLinks = $(".nav_link");
-    const $sections = $(".section");
-    let isScrollingByClick = false;
-    let isScrolling = false;
-    let scrollTimeout;
+        const $navLinks = $(".nav_link");
+        const $sections = $(".section");
+        let isScrollingByClick = false;
+        let isScrolling = false;
+        let scrollTimeout;
 
-    $navLinks.on("click", function (e) {
-        e.preventDefault();
+        $navLinks.on("click", function (e) {
+            e.preventDefault();
 
-        const target = $(this).attr("href");
-        const $target = $(target);
-        if (!$target.length) return;
+            const target = $(this).attr("href");
+            const $target = $(target);
+            if (!$target.length) return;
 
-        let offsetTop;
+            let offsetTop;
 
-        const hasUserBar =
-            $(".userbar-fixed").length > 0 && window.innerWidth > 1200;
+            const hasUserBar =
+                $(".userbar-fixed").length > 0 && window.innerWidth > 1200;
 
-        if (hasUserBar) {
-            const userBarTop = $(".userbar-fixed").offset()?.top || 0;
-            const scrollTop = $(window).scrollTop();
-            const userBarDistanceFromViewport = userBarTop - scrollTop;
+            if (hasUserBar) {
+                const userBarTop = $(".userbar-fixed").offset()?.top || 0;
+                const scrollTop = $(window).scrollTop();
+                const userBarDistanceFromViewport = userBarTop - scrollTop;
 
-            const paddingTop = parseInt($target.css("padding-top")) || 0;
-            const targetContentTop = $target.offset().top + paddingTop;
-            offsetTop = targetContentTop - userBarDistanceFromViewport;
-        } else {
-            if (
-                $target.hasClass("first-section") &&
-                window.innerWidth > 1200
-            ) {
-                offsetTop = 0;
+                const paddingTop = parseInt($target.css("padding-top")) || 0;
+                const targetContentTop = $target.offset().top + paddingTop;
+                offsetTop = targetContentTop - userBarDistanceFromViewport;
             } else {
-                const headerHeight = $(".header").outerHeight() || 0;
-                const paddingTop =
-                    parseInt($target.css("padding-top")) || 0;
-                offsetTop =
-                    $target.offset().top - headerHeight + paddingTop / 2;
-            }
-        }
-
-        isScrollingByClick = true;
-
-        const currentId = $target.attr("id");
-        $navLinks
-            .removeClass("active")
-            .filter(`[href="#${currentId}"]`)
-            .addClass("active");
-
-        $("html, body").animate({ scrollTop: offsetTop }, 0, function () {
-            setTimeout(() => {
-                isScrollingByClick = false;
-            }, 50);
-        });
-
-        $(".tf-sidebar-menu,.popup-menu-mobile").removeClass("show");
-        $(".overlay-popup").removeClass("show");
-        $("body").removeAttr("style");
-
-        if ($(this).hasClass("open-popup")) {
-            openYourPopup();
-        }
-    });
-
-    const updateActiveMenu = () => {
-        if (isScrollingByClick || isScrolling) return;
-
-        const scrollTop = $(window).scrollTop();
-        const windowHeight = $(window).height();
-        const viewportTop = scrollTop;
-        const viewportBottom = scrollTop + windowHeight;
-
-        const viewportCenter = scrollTop + windowHeight / 2;
-
-        let bestScore = -1;
-        let currentSection = null;
-        let currentIndex = -1;
-
-        $sections.each(function (index) {
-            const $section = $(this);
-
-            const sectionTop = $section.offset().top;
-            const sectionBottom = sectionTop + $section.outerHeight();
-            const sectionHeight = $section.outerHeight();
-
-            const visibleTop = Math.max(viewportTop, sectionTop);
-            const visibleBottom = Math.min(viewportBottom, sectionBottom);
-            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-
-            const visiblePercentage = sectionHeight > 0 ? (visibleHeight / sectionHeight) * 100 : 0;
-
-            const containsCenter = sectionTop <= viewportCenter && viewportCenter <= sectionBottom;
-
-            let score = visiblePercentage;
-            if (containsCenter) {
-                score += 1000;
+                if (
+                    $target.hasClass("first-section") &&
+                    window.innerWidth > 1200
+                ) {
+                    offsetTop = 0;
+                } else {
+                    const headerHeight = $(".header").outerHeight() || 0;
+                    const paddingTop =
+                        parseInt($target.css("padding-top")) || 0;
+                    offsetTop =
+                        $target.offset().top - headerHeight + paddingTop / 2;
+                }
             }
 
-            const MIN_VISIBLE_PERCENTAGE = 30;
+            isScrollingByClick = true;
 
-            if (score > bestScore && visiblePercentage >= MIN_VISIBLE_PERCENTAGE) {
-                bestScore = score;
-                currentSection = $section;
-                currentIndex = index;
-            }
-        });
-
-
-        if (currentSection && currentSection.length) {
-            const currentId = currentSection.attr("id");
-
+            const currentId = $target.attr("id");
             $navLinks
                 .removeClass("active")
                 .filter(`[href="#${currentId}"]`)
                 .addClass("active");
-            $sections.removeClass("dimmed");
-            $sections.each(function (index) {
-                if (index < currentIndex) $(this).addClass("dimmed");
+
+            $("html, body").animate({ scrollTop: offsetTop }, 0, function () {
+                setTimeout(() => {
+                    isScrollingByClick = false;
+                }, 50);
             });
-        }
+
+            $(".tf-sidebar-menu,.popup-menu-mobile").removeClass("show");
+            $(".overlay-popup").removeClass("show");
+            $("body").removeAttr("style");
+
+            if ($(this).hasClass("open-popup")) {
+                openYourPopup();
+            }
+        });
+
+        const updateActiveMenu = () => {
+            if (isScrollingByClick || isScrolling) return;
+
+            const scrollTop = $(window).scrollTop();
+            const windowHeight = $(window).height();
+            const viewportTop = scrollTop;
+            const viewportBottom = scrollTop + windowHeight;
+
+            const viewportCenter = scrollTop + windowHeight / 2;
+
+            let bestScore = -1;
+            let currentSection = null;
+            let currentIndex = -1;
+
+            $sections.each(function (index) {
+                const $section = $(this);
+
+                const sectionTop = $section.offset().top;
+                const sectionBottom = sectionTop + $section.outerHeight();
+                const sectionHeight = $section.outerHeight();
+
+                const visibleTop = Math.max(viewportTop, sectionTop);
+                const visibleBottom = Math.min(viewportBottom, sectionBottom);
+                const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+                const visiblePercentage = sectionHeight > 0 ? (visibleHeight / sectionHeight) * 100 : 0;
+
+                const containsCenter = sectionTop <= viewportCenter && viewportCenter <= sectionBottom;
+
+                let score = visiblePercentage;
+                if (containsCenter) {
+                    score += 1000;
+                }
+
+                const MIN_VISIBLE_PERCENTAGE = 30;
+
+                if (score > bestScore && visiblePercentage >= MIN_VISIBLE_PERCENTAGE) {
+                    bestScore = score;
+                    currentSection = $section;
+                    currentIndex = index;
+                }
+            });
+
+
+            if (currentSection && currentSection.length) {
+                const currentId = currentSection.attr("id");
+
+                $navLinks
+                    .removeClass("active")
+                    .filter(`[href="#${currentId}"]`)
+                    .addClass("active");
+                $sections.removeClass("dimmed");
+                $sections.each(function (index) {
+                    if (index < currentIndex) $(this).addClass("dimmed");
+                });
+            }
+        };
+
+        let scrollTimer;
+        $(window).on("scroll resize", function () {
+            isScrolling = true;
+
+            clearTimeout(scrollTimeout);
+            clearTimeout(scrollTimer);
+            scrollTimeout = setTimeout(() => {
+                isScrolling = false;
+            }, 50);
+
+            scrollTimer = setTimeout(updateActiveMenu, 100);
+        });
+        updateActiveMenu();
     };
-
-    let scrollTimer;
-    $(window).on("scroll resize", function () {
-        isScrolling = true;
-        
-        clearTimeout(scrollTimeout);
-        clearTimeout(scrollTimer);
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 50);
-
-        scrollTimer = setTimeout(updateActiveMenu, 100);
-    });
-    updateActiveMenu();
-};
     /* handleEffectSpotlight
   -------------------------------------------------------------------------*/
     const handleEffectSpotlight = () => {
@@ -316,54 +316,54 @@
         }
     };
 
-        /* handleSidebar
-    -------------------------------------------------------------------------------------*/
-        const handleSidebar = () => {
-            const closeAllPopups = () => {
-                $(
-                    ".popup-show-bar, .popup-menu-mobile, .overlay-popup"
-                ).removeClass("show");
-                $("body").removeClass("no-scroll");
-            };
-
-            $(document)
-                .off("click.handleSidebar")
-                .on("click.handleSidebar", ".show-sidebar", function (e) {
-                    e.preventDefault();
-                    $(".popup-show-bar").toggleClass("show");
-
-                    if (
-                        !$(".popup-show-bar").hasClass("show") &&
-                        !$(".popup-menu-mobile").hasClass("show")
-                    ) {
-                        $("body").removeClass("no-scroll");
-                    }
-                })
-                .on("click.handleSidebar", ".show-menu-mobile", function (e) {
-                    e.preventDefault();
-                    const $target = $($(this).data("target"));
-                    if (!$target.length) return;
-
-                    const isOpen = $target.hasClass("show");
-                    closeAllPopups();
-
-                    if (!isOpen) {
-                        $target.addClass("show");
-                        $(".overlay-popup").addClass("show");
-                        $("body").addClass("no-scroll");
-                    }
-                })
-                .on("click.handleSidebar", ".overlay-popup", function () {
-                    closeAllPopups();
-                })
-                .on(
-                    "click.handleSidebar",
-                    ".popup-menu-mobile .nav_link",
-                    function () {
-                        closeAllPopups();
-                    }
-                );
+    /* handleSidebar
+-------------------------------------------------------------------------------------*/
+    const handleSidebar = () => {
+        const closeAllPopups = () => {
+            $(
+                ".popup-show-bar, .popup-menu-mobile, .overlay-popup"
+            ).removeClass("show");
+            $("body").removeClass("no-scroll");
         };
+
+        $(document)
+            .off("click.handleSidebar")
+            .on("click.handleSidebar", ".show-sidebar", function (e) {
+                e.preventDefault();
+                $(".popup-show-bar").toggleClass("show");
+
+                if (
+                    !$(".popup-show-bar").hasClass("show") &&
+                    !$(".popup-menu-mobile").hasClass("show")
+                ) {
+                    $("body").removeClass("no-scroll");
+                }
+            })
+            .on("click.handleSidebar", ".show-menu-mobile", function (e) {
+                e.preventDefault();
+                const $target = $($(this).data("target"));
+                if (!$target.length) return;
+
+                const isOpen = $target.hasClass("show");
+                closeAllPopups();
+
+                if (!isOpen) {
+                    $target.addClass("show");
+                    $(".overlay-popup").addClass("show");
+                    $("body").addClass("no-scroll");
+                }
+            })
+            .on("click.handleSidebar", ".overlay-popup", function () {
+                closeAllPopups();
+            })
+            .on(
+                "click.handleSidebar",
+                ".popup-menu-mobile .nav_link",
+                function () {
+                    closeAllPopups();
+                }
+            );
+    };
 
     // Dom Ready
     $(function () {
@@ -377,4 +377,77 @@
         spliting();
         handleSidebar();
     });
+
+
+    const contactForm = document.getElementById("contact-form");
+    const formResult = document.getElementById("form-result");
+    const submitBtn = document.getElementById("submit-btn");
+
+    if (contactForm) {
+
+        contactForm.addEventListener("submit", async function (e) {
+
+            // IMPORTANT: page redirect/reload rokega
+            e.preventDefault();
+
+            const buttonText = submitBtn.querySelector("span");
+
+            buttonText.textContent = "Sending...";
+            submitBtn.disabled = true;
+
+            formResult.innerHTML = "";
+
+            const formData = new FormData(contactForm);
+
+            try {
+
+                const response = await fetch(
+                    "https://api.web3forms.com/submit",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    formResult.innerHTML = `
+                    <p style="color:#45e77b; margin-top:15px;">
+                        ✓ Message sent successfully!
+                    </p>
+                `;
+
+                    // Form clear
+                    contactForm.reset();
+
+                } else {
+
+                    formResult.innerHTML = `
+                    <p style="color:#ff5c5c; margin-top:15px;">
+                        ✕ ${data.message || "Something went wrong!"}
+                    </p>
+                `;
+
+                }
+
+            } catch (error) {
+
+                formResult.innerHTML = `
+                <p style="color:#ff5c5c; margin-top:15px;">
+                    ✕ Unable to send message. Please try again.
+                </p>
+            `;
+
+            } finally {
+
+                buttonText.textContent = "Send Message";
+                submitBtn.disabled = false;
+
+            }
+
+        });
+
+    }
 })(jQuery);
