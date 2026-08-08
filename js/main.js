@@ -387,7 +387,7 @@
 
         contactForm.addEventListener("submit", async function (e) {
 
-            // IMPORTANT: page redirect/reload rokega
+            
             e.preventDefault();
 
             const buttonText = submitBtn.querySelector("span");
